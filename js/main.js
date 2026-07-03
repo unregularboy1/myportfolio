@@ -134,4 +134,28 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') closeMobile();
   });
 
+
+  /* ──────────────────────────────────────────────
+     6. SCROLL TO TOP BUTTON
+  ────────────────────────────────────────────── */
+  const scrollTopBtn = document.getElementById('scrollTop');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      scrollTopBtn.classList.add('visible');
+    } else {
+      scrollTopBtn.classList.remove('visible');
+    }
+  }, { passive: true });
+
+  // Expand cursor on hover
+  scrollTopBtn.addEventListener('mouseenter', () => {
+    cursor.classList.add('expand');
+    ring.classList.add('expand');
+  });
+  scrollTopBtn.addEventListener('mouseleave', () => {
+    cursor.classList.remove('expand');
+    ring.classList.remove('expand');
+  });
+
 });

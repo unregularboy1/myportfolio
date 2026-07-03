@@ -905,6 +905,56 @@ footer p { font-size: 0.72rem; color: var(--mid); }
 }
 .footer-links a:hover { color: var(--gold); }
 
+/* ── SCROLL TO TOP BUTTON ─────────────────────── */
+.scroll-top {
+  position:         fixed;
+  bottom:           2rem;
+  right:            2rem;
+  width:            46px;
+  height:           46px;
+  border-radius:    50%;
+  background:       var(--black);
+  border:           1px solid var(--gold-border);
+  color:            var(--gold);
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  cursor:           none;
+  z-index:          90;
+  opacity:          0;
+  transform:        translateY(16px);
+  transition:       opacity 0.35s ease, transform 0.35s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  pointer-events:   none;
+}
+
+.scroll-top svg {
+  width:  18px;
+  height: 18px;
+  stroke: var(--gold);
+  transition: stroke 0.25s ease;
+}
+
+.scroll-top.visible {
+  opacity:        1;
+  transform:      translateY(0);
+  pointer-events: auto;
+}
+
+.scroll-top:hover {
+  background:    var(--gold);
+  border-color:  var(--gold);
+  box-shadow:    0 8px 24px rgba(201, 168, 76, 0.35);
+}
+
+.scroll-top:hover svg {
+  stroke: #080808;
+}
+
+/* On mobile use pointer auto since cursor is disabled */
+@media (max-width: 900px) {
+  .scroll-top { cursor: pointer; bottom: 1.5rem; right: 1.5rem; }
+}
+
 /* ── ANIMATIONS ───────────────────────────────── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(28px); }
@@ -931,6 +981,9 @@ footer p { font-size: 0.72rem; color: var(--mid); }
   #hero                  { padding-top: 0; }
   .hero-content          { padding-top: 7rem; }
 
+  /* Fix hero name overflow on tablet */
+  .hero-name             { font-size: clamp(2.8rem, 9vw, 5rem); word-break: break-word; overflow-wrap: break-word; }
+
   .hero-stats            { flex-direction: column; }
   .stat-item             { border-right: none; border-bottom: 1px solid var(--border); padding: 1.5rem 0; }
   .stat-item:last-child  { border-bottom: none; }
@@ -954,8 +1007,31 @@ footer p { font-size: 0.72rem; color: var(--mid); }
 }
 
 @media (max-width: 520px) {
-  .skills-grid    { grid-template-columns: 1fr; }
-  .interests-grid { grid-template-columns: 1fr; }
+  .skills-grid           { grid-template-columns: 1fr; }
+  .interests-grid        { grid-template-columns: 1fr; }
+
+  /* Fix hero name on small mobile - stops Oluwakayode overflowing */
+  .hero-name             { font-size: clamp(2.2rem, 11vw, 3.2rem); line-height: 1; word-break: break-word; overflow-wrap: break-word; }
+
+  /* Tighter hero padding on small screens */
+  .hero-content          { padding-top: 6rem; padding-bottom: 2rem; }
+
+  /* Prevent any horizontal scroll */
+  #hero                  { overflow-x: hidden; }
+
+  /* Stack hero buttons on very small screens */
+  .hero-cta              { flex-direction: column; }
+  .btn                   { width: 100%; justify-content: center; }
+
+  /* Contact strip text smaller */
+  .contact-strip-value   { font-size: 0.75rem; }
+
+  /* Interest cards single column already handled above */
+  .interest-card         { padding: 1.5rem; }
+
+  /* Footer smaller text */
+  footer                 { padding: 1.5rem; }
+  footer p               { font-size: 0.65rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
